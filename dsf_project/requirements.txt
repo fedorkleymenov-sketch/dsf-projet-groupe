@@ -1,0 +1,10 @@
+# Package versions used to run the notebooks; tested with Python 3.13.
+# Install Python separately; pip installs only the packages listed below.
+numpy==2.5.3
+pandas==3.0.5
+matplotlib==3.11.2
+statsmodels==0.15.0
+scikit-learn==1.9.1
+ipykernel==6.31.0
+# Needed for %run calls that execute other notebooks.
+nbformat==5.10.4
