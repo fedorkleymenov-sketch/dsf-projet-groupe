@@ -1,5 +1,5 @@
-# Package versions used to run the notebooks; tested with Python 3.13.
-# Install Python separately; pip installs only the packages listed below.
+# Package versions used to run the notebooks: tested with Python 3.13.
+# Install Python separately: pip installs only the packages listed below.
 numpy==2.5.3
 pandas==3.0.5
 matplotlib==3.11.2
