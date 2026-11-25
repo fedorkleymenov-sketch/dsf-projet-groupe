@@ -10,7 +10,7 @@ Projet de groupe - Data Science Fundamentals (HSG)
 
 Goal: reproduce all outputs (figures and tables) from the raw data.
 
-- Install the packages in `requirements.txt` (`python -m pip install -r requirements.txt` from the project root).
+- Use Python 3.13 and install the packages in `requirements.txt` (`python -m pip install -r requirements.txt` from the project root). Install Python separately: pip installs only the packages.
 - Open `code/main.ipynb`, restart the kernel and run all cells.
 - Use `code/` as the working directory. If you start at the project root, run `%cd code` in a notebook cell first.
 
@@ -25,17 +25,17 @@ Goal: reproduce all outputs (figures and tables) from the raw data.
 4. `04_test.ipynb`: the chosen linear regression and the 12-month average on the test period (2024-10 to 2026-09), used once; forecasts made as in the backtest (refit at each origin on the months known then). The random walk is reported for information (added on 23 November; the forecasts of the chosen model are unchanged). Saves `data/processed/test_forecasts.csv`, `output/tables/04_test_errors.csv` and `output/figures/04_test_forecasts_h2.png`.
 5. `05_ranges_and_forecast.ipynb` (added on 23 November): 80% and 90% ranges around the forecasts of the chosen model, from the quantiles of its past errors known at each origin; how often the actual number falls inside (backtest and test); the forecast from the newest data (origin 2026-09). Saves `output/tables/05_range_coverage.csv`, `output/tables/05_forecast_from_2026_09.csv` and `output/figures/05_ranges_h2.png`.
 
-`main.ipynb` runs the eight notebooks in order (about three minutes). Rerunning it from the raw data reproduces the same outputs (no random steps; seed fixed at 42).
+`main.ipynb` runs the eight notebooks in order (about 2.5 minutes). Rerunning it from the raw data reproduces the same outputs (no random steps; seed fixed at 42).
 
 ## Main result
 
-Forecasting two months ahead, the linear regression on the series' own past misses by 188 applications per month on average in the test period (2024-10 to 2026-09), against 331 for the 12-month average (43% lower MAE). In the backtest (2013 to 2024-09) the gain was 32% (358 against 528).
+Forecasting two months ahead, the linear regression on the series' own past misses by 188 applications per month on average in the test period (2024-10 to 2026-09), against 331 for the 12-month average (43% lower MAE). In the backtest (2013 to 2024-09) the gain was 32% (358 against 528). Against the best SARIMA model (369), a baseline in our plan, the gain is only 3%, and its RMSE of the log is slightly lower than ours; SARIMA was not part of the test. We changed our main comparison from the best SARIMA model to the best simple rule when we added the regressions, so we report all comparisons (`03_evaluate.ipynb`, section 3).
 
 Against the random walk (repeat the last known month), added after the test, the gain is small in the backtest (379 against 358, 5% lower MAE, below the 10% of our success rule) and 30% in the test (269 against 188). Most of what can be predicted two months ahead is already in the last month.
 
 The 80% range from past errors contains 80% of the actual numbers in the backtest (about ±30% of the forecast at h = 2), but it is too wide in the calm test period and too narrow at the start of the 2015 crisis.
 
-The route indicator (Frontex) did not improve the forecasts, because it is published too late.
+The route indicator (Frontex) did not improve the forecasts. Its links with Swiss applications are strongest in the same month and one month later, and at the cutoff those months are already known (our timing rule assumes Frontex is one month behind SEM, based on the date of one file).
 
 ## Data
 
