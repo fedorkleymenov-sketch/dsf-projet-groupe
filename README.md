@@ -16,6 +16,8 @@ Goal: reproduce all outputs (figures and tables) from the raw data.
 
 ## Workflow
 
+The estimation notebooks follow four steps, each adding one thing: simple rules and (S)ARIMA (`02`), regressions on the series' own past (`02b`), and the same regressions plus the Frontex route indicator (`02c`); `03` compares them in this order.
+
 1. `01_preprocess.ipynb`: load and check the monthly series, split the months by time (first training window, backtest, test), explore the months before the test period, save `data/processed/asylum_clean.csv`.
 1b. `01b_preprocess_indicators.ipynb`: load and check the Frontex detections by route, build the indicator (sum of the Central Mediterranean, Eastern Mediterranean and Western Balkan routes), state what is known at the cutoff, explore it before the test period, save `data/processed/routes_clean.csv`.
 2. `02_estimate.ipynb`: seasonal naive, 12-month average, random walk (added on 23 November, after the test) and three (S)ARIMA models in an expanding-window backtest (141 origins, h = 1, 2, 3); saves `data/processed/backtest_forecasts.csv`. Runs in about 30 seconds.
